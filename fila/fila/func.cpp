@@ -31,19 +31,36 @@ int sizeOfTheQueue(Queue *queue)
     {
         int count = 0;
         slotInforQ *sizeOf = queue->begin;
-        while(sizeOf != NULL){
-            count+=1;
+        while (sizeOf != NULL)
+        {
+            count += 1;
             sizeOf = sizeOf->next;
         }
+        return count;
     }
 }
 
 void freeQueue(Queue *queue)
 {
+    if(queue != NULL){
+        slotInforQ *freeQ;
+        while(queue->begin != NULL){
+            freeQ = queue->begin;
+            queue->begin = queue->begin->next;//proxima informação a frente de le, será o novo início.
+            free(freeQ);
+        }
+        free(queue);
+    }
 }
 
 int statusOfTheQueue(Queue *queue)
 {
-    return 0;
+    if (queue == NULL || queue->begin == NULL)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
 }
-

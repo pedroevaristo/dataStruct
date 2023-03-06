@@ -3,6 +3,7 @@
 #include<cstdlib>
 
 using namespace std;
+//fazer como se fosse uma fila do supermercado;
 
 
 int main(){
