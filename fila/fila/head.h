@@ -26,3 +26,11 @@ void freeQueue(Queue *queue);
 int statusOfTheQueue(Queue *queue);
 
 /*-------------------------*/
+
+void printOutTheRow(Queue *queue);
+
+
+/*----------------------------*/
+int insertTheRow(Queue *queue, head registry);
+
+void removeTheRow(Queue *queue);
