@@ -11,26 +11,27 @@ struct slotInforQ{
     head registry;
     slotInforQ *next;
 };
-struct Queue{
+struct queue{
     slotInforQ *begin;//é nescessário ter esse "slotInforQ" para que as informações passem para a struct dele
     slotInforQ *final;
 
 };
 
-Queue *createQueue();
+queue *create();
+/*-------------------------------*/
 
-int sizeOfTheQueue(Queue *queue);
-
-void freeQueue(Queue *queue);
-
-int statusOfTheQueue(Queue *queue);
+int sizeOfTheQueue(queue *queue);
+void freeQueue(queue *queue);
+int statusOfTheQueue(queue *queue);
 
 /*-------------------------*/
 
-void printOutTheRow(Queue *queue);
-
+void printOutTheRow(queue *queue);
 
 /*----------------------------*/
-int insertTheRow(Queue *queue, head registry);
 
-void removeTheRow(Queue *queue);
+int insertTheRow(queue *queue, head registry);
+int removeTheRow(queue *queue);
+
+/*----------------------------*/
+int consultThePerson(queue *queue, head *registry);

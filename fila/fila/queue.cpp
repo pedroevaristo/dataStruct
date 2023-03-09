@@ -8,16 +8,17 @@ using namespace std;
 
 int main()
 {
-    head registry, *registryQueue;
-    Queue *queue;
-
-    registryQueue = &registry;
+    head registry, *registry1;
+    queue *queue;
+    registry1 = &registry;
 
     char choice;
 
     int loopWhile = 1;
+    int sizestatus = 0;
+    int status = 0;
 
-    queue = createQueue();
+    create();
     cout << "initiate the queue...\n"
          << endl;
     while (loopWhile != 0)
@@ -26,17 +27,11 @@ int main()
         cout << "inform what would you like to do !" << endl;
 
         cout << "0 - Exit and clear the memory; " << endl;
-
-        cout << "1 - Consult size of the row; " << endl;
-
-        cout << "2 - Print out the row; " << endl;
-
-        cout << "3 - Insert the person with information; " << endl;
-
+        cout << "1 - Insert the person with information; " << endl;
+        cout << "2 - Remove person from queue; " << endl;
+        cout << "3 - Consult size of the row;  " << endl;
         cout << "4 - Verify if the row is empty; " << endl;
-
-        cout << "5 - Remove person from queue;  " << endl;
-
+        cout << "5 -  Print out the row; " << endl;
         cout << "6 - Consult the person from queue; " << endl;
 
         cin >> choice;
@@ -44,21 +39,10 @@ int main()
         switch (choice)
         {
         case '0':
-
             freeQueue(queue);
-
+            exit(0);
             break;
         case '1':
-
-            sizeOfTheQueue(queue);
-
-            break;
-        case '2':
-
-            printOutTheRow(queue);
-
-            break;
-        case '3':
 
             cout << "Type your information below: " << endl;
 
@@ -78,15 +62,29 @@ int main()
             insertTheRow(queue, registry);
 
             break;
+        case '2':
+            removeTheRow(queue);
+
+            break;
+        case '3':
+
+            sizestatus = sizeOfTheQueue(queue);
+
+            cout << "This is siz" << sizestatus << endl;
+
+            break;
         case '4':
 
             statusOfTheQueue(queue);
 
             break;
+
         case '5':
+            printOutTheRow(queue);
 
             break;
         case '6':
+            consultThePerson(queue, registry1);
 
             break;
         }

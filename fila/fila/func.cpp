@@ -1,13 +1,14 @@
 #include "head.h"
 #include <iostream>
 #include <cstdlib>
-#include <cstring>
 
 using namespace std;
 
-Queue *createQueue()
+queue *create()
 {
-    Queue *create = (Queue *)malloc(sizeof(Queue));
+
+    queue *create = (queue *)malloc(sizeof(queue));
+
     if (create != NULL)
     {
         create->begin == NULL;
@@ -15,115 +16,150 @@ Queue *createQueue()
     }
     else
     {
-        cout << "Error to create the row ! " << endl;
+        cout << "Eroor to create the row !" << endl;
     }
     return create;
 }
 
-int sizeOfTheQueue(Queue *queue)
+int sizeOfTheQueue(queue *queue)
 {
-    if (queue == NULL)
+    if (statusOfTheQueue(queue))
     {
-
+        
         return 0;
     }
     else
     {
         int count = 0;
-        slotInforQ *sizeOf = queue->begin;
-        while (sizeOf != NULL)
+        slotInforQ *size = queue->begin;
+        while (size != NULL)
         {
-            count += 1;
-            sizeOf = sizeOf->next;
+            count++;
+            size = size->next;
         }
         return count;
     }
 }
 
-void freeQueue(Queue *queue)
-{
-    if (queue != NULL)
-    {
-        slotInforQ *freeQ;
-        while (queue->begin != NULL)
-        {
-            freeQ = queue->begin;
-            queue->begin = queue->begin->next; // proxima informação a frente de le, será o novo início.
-            free(freeQ);
-        }
-        free(queue);
-    }
-}
 
-int statusOfTheQueue(Queue *queue)
+int statusOfTheQueue(queue *queue)
 {
     if (queue == NULL || queue->begin == NULL)
     {
-        return 1;
+        cout << "This row is empty" << endl;
+        return 1; // caso seja verdade, sim
     }
-    else
-    {
+    else if(queue != NULL || queue->begin != NULL)
+    { // caso não seja verdade
+        cout << "This row isn't empty" << endl;
         return 0;
     }
 }
-void printOutTheRow(Queue *queue)
+
+/*============================*/
+int insertTheRow(queue *queue, head registry)
 {
-    system("cls");
+    cout<<"entrou "<<endl;
 
-    if (statusOfTheQueue(queue))
-    {
-
-        cout << "This is empty" << endl;
-    }
-    else
-    {
-        int count = 0;
-        slotInforQ *printout = queue->begin;
-
-        if (printout != NULL)
-        {
-
-            cout << "the person's data: " << count + 1 << endl;
-            cout << "Name: " << printout->registry.name << endl;
-            cout << "Age: " << printout->registry.age << endl;
-            cout << "Password: " << printout->registry.password << endl;
-            cout << "Bank account: " << printout->registry.money << endl;
-
-            printout = printout->next;
-            count += 1;
-        }
-    }
-}
-
-/*------------------------------------------*/
-int insertTheRow(Queue *queue, head registry)
-{
     if (queue == NULL)
     {
-        cout << "Data is empty, error ! Try again. " << endl;
         return 0;
     }
     else
     {
-        cout << "Data stored\n" << endl;
-
+        cout<<"entrou "<<endl;
         slotInforQ *insert = (slotInforQ *)malloc(sizeof(slotInforQ));
-
-        if(insert == NULL){
+        if (insert == NULL)
+        {
             return 0;
         }
+
         insert->registry = registry;
         insert->next = NULL;
-        if(queue->begin == NULL){
+
+        if (queue->final == NULL)
+        {
+            cout<<"entrou if "<<endl;
             queue->begin = insert;
-        }else{
-            queue->final->next = insert;//irá apontar para o novo valor;
+        }
+        else
+        {
+            cout<<"entrou else"<<endl;
+            queue->final->next = insert;
         }
         queue->final = insert;
         return 1;
     }
 }
 
-void removeTheRow(Queue *queue)
+int removeTheRow(queue *queue)
 {
+    if (statusOfTheQueue(queue))
+    {
+        return 0;
+    }
+    else
+    {
+        slotInforQ *removed = queue->begin;
+
+        queue->begin = queue->begin->next;
+        if (queue->begin != NULL)
+        {
+            queue->final = NULL;
+        }
+        free(removed);
+        return 1;
+    }
+}
+
+/*============================*/
+
+void freeQueue(queue *queue)
+{
+    if(queue != NULL){
+        slotInforQ *freeq;
+        while(queue->begin !=NULL){
+            freeq = queue->begin;
+            queue->begin = queue->begin->next;
+            free(freeq);
+        }
+        free(queue);
+    }
+}
+/*============================*/
+void printOutTheRow(queue *queue)
+{
+    system("cls");
+    if (statusOfTheQueue(queue))
+    {
+        cout << "This queue is empty !" << endl;
+        return;
+    }
+    else
+    {
+        int count = 0;
+        slotInforQ *print = queue->begin;
+
+        while (print != NULL)
+        {
+
+            cout << "information: \n"
+                 << endl;
+            cout << "Name:" << print->registry.name << endl;
+            cout << "Age: " << print->registry.age << endl;
+            cout << "PassWord: " << print->registry.password << endl;
+            cout << "Account: " << print->registry.money << endl;
+        }
+    }
+}
+/*============================*/
+
+int consult(queue *queue, head *registry){
+    if(statusOfTheQueue(queue)){
+        return 0;
+    }else{
+        *registry = queue->begin->registry;
+        return 1;
+
+    }
 }
